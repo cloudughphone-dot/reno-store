@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RENO STORE - Top Up Game</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:#fff;
+ font-family:Arial,sans-serif
+}
+header{
+ background:#151d32;padding:22px 16px;
+ border-bottom:2px solid #20e3b2
+}
+header h1{margin:0;color:#20e3b2}
+header p{margin-bottom:0;color:#c4cce0}
+main{padding:18px;max-width:650px;margin:auto}
+.search{
+ width:100%;padding:13px;border-radius:10px;
+ border:1px solid #303b54;background:#151d32;
+ color:white;font-size:16px
+}
+h2{font-size:20px}
+.games{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:12px
+}
+.game{
+ background:#151d32;border:1px solid #303b54;
+ border-radius:12px;padding:18px 10px;
+ color:white;text-align:center;cursor:pointer
+}
+.game strong{display:block;margin-top:9px}
+.game.active{border:2px solid #20e3b2}
+.panel{
+ background:#151d32;padding:17px;
+ border-radius:12px;margin-top:20px
+}
+label{display:block;margin:14px 0 7px}
+input,select{
+ width:100%;padding:12px;border-radius:8px;
+ border:1px solid #303b54;background:#0b1020;
+ color:white;font-size:15px
+}
+button{
+ width:100%;padding:13px;margin-top:16px;
+ border:0;border-radius:8px;background:#20e3b2;
+ color:#08131b;font-weight:bold;font-size:16px
+}
+.note{color:#aab6d0;font-size:13px;line-height:1.6}
+footer{text-align:center;padding:25px;color:#8995af}
+</style>
+</head>
+<body>
+<header>
+<h1>RENO STORE</h1>
+<p>Top Up Game Cepat, Mudah, dan Aman</p>
+</header>
+<main>
+<h2>Pilih Game Favoritmu 🎮</h2>
+<input id="search" class="search"
+placeholder="Cari game..."
+oninput="filterGames()">
+
+<div class="games" id="games">
+<button class="game" data-name="Mobile Legends"
+onclick="chooseGame('Mobile Legends')">⚔️
+<strong>Mobile Legends</strong></button>
+
+<button class="game" data-name="Free Fire"
+onclick="chooseGame('Free Fire')">🔥
+<strong>Free Fire</strong></button>
+
+<button class="game" data-name="PUBG Mobile"
+onclick="chooseGame('PUBG Mobile')">🎯
+<strong>PUBG Mobile</strong></button>
+
+<button class="game" data-name="Roblox"
+onclick="chooseGame('Roblox')">🧱
+<strong>Roblox</strong></button>
+
+<button class="game" data-name="Genshin Impact"
+onclick="chooseGame('Genshin Impact')">✨
+<strong>Genshin Impact</strong></button>
+
+<button class="game" data-name="Honor of Kings"
+onclick="chooseGame('Honor of Kings')">👑
+<strong>Honor of Kings</strong></button>
+</div>
+
+<div class="panel">
+<h2>Formulir Top Up</h2>
+<form id="orderForm">
+<label>Game yang dipilih</label>
+<input id="game" placeholder="Pilih game di atas" readonly required>
+
+<label>ID Pemain</label>
+<input id="player" placeholder="Masukkan ID pemain" required>
+
+<label>Server / Zone ID (jika diperlukan)</label>
+<input id="server" placeholder="Contoh: 1234">
+
+<label>Pilih nominal</label>
+<select id="nominal" required>
+<option value="">Pilih nominal</option>
+</select>
+
+<button type="submit">LANJUTKAN PESANAN</button>
+</form>
+<p class="note">
+Versi demo RENO STORE. Harga, pembayaran, dan pengiriman
+item belum aktif. Jangan mengirim pembayaran ke siapa pun
+melalui halaman demo ini.
+</p>
+</div>
+</main>
+<footer>© 2026 RENO STORE</footer>
+<script>
+const products={
+"Mobile Legends":[
+["86 Diamonds",20000],["172 Diamonds",39000],
+["257 Diamonds",58000],["344 Diamonds",77000]],
+"Free Fire":[
+["70 Diamonds",10000],["140 Diamonds",20000],
+["355 Diamonds",50000],["720 Diamonds",100000]],
+"PUBG Mobile":[
+["60 UC",16000],["325 UC",79000],
+["660 UC",159000]],
+"Roblox":[
+["80 Robux",20000],["400 Robux",90000]],
+"Genshin Impact":[
+["60 Genesis Crystals",16000],["300 Genesis Crystals",79000]],
+"Honor of Kings":[
+["80 Tokens",16000],["400 Tokens",79000]]
+};
+function chooseGame(name){
+document.getElementById('game').value=name;
+document.querySelectorAll('.game').forEach(b=>
+b.classList.toggle('active',b.dataset.name===name));
+const select=document.getElementById('nominal');
+select.innerHTML='<option value="">Pilih nominal</option>';
+(products[name]||[]).forEach(p=>{
+const option=document.createElement('option');
+option.value=p[0];
+option.textContent=p[0]+' — Rp'+p[1].toLocaleString('id-ID');
+select.appendChild(option);
+});
+}
+function filterGames(){
+const q=document.getElementById('search').value.toLowerCase();
+document.querySelectorAll('.game').forEach(b=>{
+b.style.display=b.dataset.name.toLowerCase().includes(q)?'block':'none';
+});
+}
+document.getElementById('orderForm').addEventListener('submit',e=>{
+e.preventDefault();
+alert('Ini masih demo. Pesanan belum dibuat dan pembayaran belum diproses.');
+});
+</script>
+</body>
+  </html>
